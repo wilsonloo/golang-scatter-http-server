@@ -1,0 +1,472 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+  <link rel="stylesheet" href="../config/stylesheets/stylesheet.css" media="screen"/>
+
+  <link rel="stylesheet" href="../config/stylesheets/pygment_trac.css"/>
+
+  <script class="jquery library" src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+
+  <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+
+  <title>timescatter</title>
+
+
+
+
+
+  </head>
+
+<body>
+
+    <div class='content'>
+
+    <header>
+
+      <h1 class="title">
+
+	</h1>
+
+      <h1 class="title">timescatter</h1>
+
+    </header>
+
+    <div id="main" style="height:500px;"></div>
+
+    <header>
+
+      <h1 class="title">timescatter</h1>
+
+    </header>
+
+    <div id="sender" style="height:500px;"></div>
+
+			
+
+  <script type="text/javascript">
+
+/*	$(".selector1").change(function(){
+
+
+
+     // 先清空第二个
+
+	var selecteditem=$(".selector1").val();
+
+	myFunction(0,"main",selecteditem);
+
+	myFunction(2,"sender",selecteditem);
+
+	//alert($(".selector1").val());
+
+
+
+});*/
+
+	myFunction(0,"main",7);
+
+	//myFunction(2,"sender",7);
+
+	function myFunction(inputtype,layout,days)
+
+	{
+
+        var aaa=30;
+
+        require.config({
+
+            paths: {
+
+                echarts: 'http://echarts.baidu.com/build/dist'
+
+            },
+
+            packages: [
+
+                {
+
+                    name: 'echarts',
+
+                    location: '../../src',
+
+                    main: 'echarts'
+
+                },
+
+                {
+
+                    name: 'zrender',
+
+                    location: 'http://ecomfe.github.io/zrender/src',
+
+                    //location: '../../../zrender/src',
+
+                    main: 'zrender'
+
+                }
+
+            ]
+
+        });
+
+        var myChart ;
+
+        require(
+
+            [
+
+                'echarts',
+
+                'echarts/chart/line',
+
+                'echarts/chart/bar',
+
+                'echarts/chart/scatter'
+
+            ],
+
+            function (ec) {
+
+				
+
+				var option = {
+
+
+
+						title : {
+
+
+
+							text: 'timescatter',
+
+
+
+							subtext: 'timescatter'
+
+
+
+						},
+
+
+
+						tooltip : {
+
+
+
+							trigger: 'axis',
+
+
+
+							showDelay : 0,
+
+
+
+							formatter : function (params) {
+
+
+
+								if (params.value.length > 1) {
+
+
+
+									return params.seriesName + ' :<br/>'
+
+
+
+									   + params.value[0] + ' : ' 
+
+
+
+									   + params.value[1] + 'ms ';
+
+
+
+								}
+
+
+
+								else {
+
+
+
+									return params.seriesName + ' :<br/>'
+
+
+
+									   + params.name + ' : '
+
+
+
+									   + params.value + 'ms ';
+
+
+
+								}
+
+
+
+							},  
+
+
+
+							axisPointer:{
+
+
+
+								show: true,
+
+
+
+								type : 'cross',
+
+
+
+								lineStyle: {
+
+
+
+									type : 'dashed',
+
+
+
+									width : 1
+
+
+
+								}
+
+
+
+							}
+
+
+
+						},
+
+
+
+						legend: {
+
+
+
+							data:['time']
+
+
+
+						},
+
+
+
+						toolbox: {
+
+
+
+							show : true,
+
+
+
+							feature : {
+
+
+
+								mark : {show: true},
+
+
+
+								dataZoom : {show: true},
+
+
+
+								dataView : {show: true, readOnly: false},
+
+
+
+								restore : {show: true},
+
+
+
+								saveAsImage : {show: true}
+
+
+
+							}
+
+
+
+						},
+
+
+
+						xAxis : [
+
+
+
+							{
+
+
+
+								type : 'value',
+
+
+
+								scale:true,
+
+
+
+								axisLabel : {
+
+
+
+									formatter: '{value} '
+
+
+
+								}
+
+
+
+							}
+
+
+
+						],
+
+
+
+						yAxis : [
+
+
+
+							{
+
+
+
+								type : 'value',
+
+
+
+								scale:true,
+
+
+
+								axisLabel : {
+
+
+
+									formatter: '{value} ms'
+
+
+
+								}
+
+
+
+							}
+
+
+
+						],
+
+
+
+						series : [
+
+
+
+							{
+
+
+
+								name:'time',
+
+
+
+								type:'scatter',
+
+
+
+								data:[[1087,2],[1183,7],[1190,8],[1196,8],[1202,8],[1214,8],[1220,8],[1243,8],[765,23],[833,23],[894,23],[671,24],[950,24],[1070,24],[1094,24],[1100,24],[1162,24],[1144,24],[1150,24],[1131,24],[1137,24],[1125,24],[1119,24],[1156,24],[1226,24],[1249,24],[1330,24],[1324,24],[1318,24],[1311,24],[1288,24],[1279,24],[1273,24],[1267,24],[1261,24],[1343,24],[1336,24],[1208,24],[1349,24],[1255,24],[1574,24],[1580,24],[1555,24],[1561,24],[1567,24],[1525,24],[1543,24],[1549,24],[1507,24],[1513,24],[1519,24],[1489,24],[1495,24],[1501,24],[1468,24],[1476,24],[1483,24],[1450,27],[1456,27],[1462,27],[1431,27],[1438,27],[1444,27],[1392,27],[1398,27],[1404,27],[1367,27],[1373,27],[1379,27],[1385,27],[1355,27],[1362,27],[1592,34],[3216,33],[3224,33],[3207,33],[3187,33],[3180,33],[3173,33],[3166,33],[3159,33],[3128,33],[3122,34],[3115,34],[3097,34],[3091,34],[3084,34],[3076,34],[3036,34],[1586,36]],
+
+
+
+								markPoint : {
+
+
+
+									data : [
+
+
+
+										{type : 'max', name: '最大值'},
+
+
+
+										{type : 'min', name: '最小值'}
+
+
+
+									]
+
+
+
+								},
+
+
+
+								markLine : {
+
+
+
+									data : [
+
+
+
+										{type : 'average', name: '平均值'}
+
+
+
+									]
+
+
+
+								}
+
+
+
+							}
+
+
+
+						]
+
+
+
+					};
+
+
+
+
+
+
+
+				myChart = ec.init(document.getElementById(layout));
+
+				myChart.setOption(option);
+
+            }
+
+        );
+
+	}
+
+  </script>
+
+</body>
+
+</html>
+
